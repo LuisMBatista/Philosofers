@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:08:46 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/11 20:34:10 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:33:18 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,3 +56,10 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
+size_t	get_current_time_in_ms(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec*1000 + tv.tv_usec/1000);
+}
