@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:06:24 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/14 16:57:48 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:23:42 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ typedef struct s_philo
 	size_t			time_to_sleep;
 	size_t			start_time;
 	pthread_t		thread;
-	pthread_mutex_t	*r_fork;
+	pthread_mutex_t	r_fork;
 	pthread_mutex_t	*l_fork;
+	pthread_mutex_t	mutex_check_forks;
+	struct s_superv	*superv;
 }					t_philo;
 
 typedef struct s_superv
@@ -51,13 +53,13 @@ void	check_args(int ac, char **av);
 size_t	ft_strlen(const char *s);
 void 	ll_check(char *av);
 int		init_philos(t_superv *superv, char **av, int ac);
-void	fork_pointing(t_superv *superv);
 size_t get_current_time_in_ms(void);
 void check_eating_times(t_superv *superv, char **av, int ac);
 void *philo_routine(void *philo);
 void routine(t_superv *superv);
 int philo_eats(t_philo *philo);
 int philo_sleeps(t_philo *philo);
+void forks(t_superv *superv);
 
 
 #endif

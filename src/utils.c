@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:08:46 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/13 17:33:18 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/15 15:52:52 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,3 +63,4 @@ size_t	get_current_time_in_ms(void)
 	gettimeofday(&tv, NULL);
 	return (tv.tv_sec*1000 + tv.tv_usec/1000);
 }
+
