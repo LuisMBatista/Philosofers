@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 15:29:50 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/15 16:24:50 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/17 18:19:15 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,20 @@ int init_philos(t_superv *superv, char **av, int ac)
 		superv->philos[i].start_time = get_current_time_in_ms();
 		superv->philos[i].superv = superv;
 		check_eating_times(superv, av, ac);
+		forks(superv, i);
 		i++;
 	}
-	forks(superv);
 	return (0);
 }
 
-void forks(t_superv *superv)
+void forks(t_superv *superv, int i)
 {
-	int i;
-	pthread_mutex_init(&superv->philos[0].r_fork, NULL);
-
-	i = 0;
-	while (i < superv->philos[0].num_of_philos)
-	{
-		if (i == superv->philos[0].num_of_philos - 1)
-			superv->philos[i].l_fork = &superv->philos[0].r_fork;
-		else
-			superv->philos[i].l_fork =  &superv->philos[i + 1].r_fork;
-		i++;
-	}
+	pthread_mutex_init(&superv->philos[i].r_fork, NULL);
+	if (i == superv->philos[0].num_of_philos - 1)
+		superv->philos[i].l_fork = &superv->philos[0].r_fork;
+	else
+		superv->philos[i].l_fork =  &superv->philos[i + 1].r_fork;
+	i++;
 }
 
 

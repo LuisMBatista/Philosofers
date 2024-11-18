@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:05:02 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/15 14:36:33 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/18 00:41:02 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int main (int ac, char **av)
 		exit(1);
 	}
 	init_philos(&superv, av, ac);
-	routine(&superv);
+	thread_creation(&superv);
 	return (0);
 }
 
