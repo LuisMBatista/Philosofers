@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:05:02 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/18 00:41:02 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:38:52 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,18 @@ int main (int ac, char **av)
 {
 	t_superv	superv;
 	
-	check_args(ac, av);
+	if (check_args(ac, av) == 1)
+		return (1);
 	superv.dead_flag = 0;
 	superv.philos = malloc(sizeof(t_philo) * ft_atol(av[1]));
 	if (!superv.philos)
 	{
 		printf("Error: Inicial malloc failed");
-		exit(1);
+		return(1);
 	}
 	init_philos(&superv, av, ac);
 	thread_creation(&superv);
+	free(superv.philos);
 	return (0);
 }
 

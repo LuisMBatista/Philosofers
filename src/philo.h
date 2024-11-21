@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:06:24 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/18 17:41:27 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/21 21:20:12 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_philo
 	int				meals_eaten;
 	int				num_of_philos;
 	int				num_times_to_eat;
-	int				*dead;
+	int				dead;
 	long			last_meal;
 	long			time_to_die;
 	long			time_to_eat;
@@ -44,15 +44,16 @@ typedef struct s_superv
 {
 	int				dead_flag;
 	t_philo			*philos;
-	pthread_t		mutex_check_forks;
+	pthread_t		check_death;
 	pthread_mutex_t print;
+	pthread_mutex_t dead_mutex;
 }					t_superv;
 
 long	ft_atol(const char *str);
-void	check_av(char **av);
-void	check_args(int ac, char **av);
+int		check_av(char **av);
+int		check_args(int ac, char **av);
 size_t	ft_strlen(const char *s);
-void 	ll_check(char *av);
+int 	ll_check(char *av);
 int		init_philos(t_superv *superv, char **av, int ac);
 size_t get_current_time_in_ms(void);
 void check_eating_times(t_superv *superv, char **av, int ac, int i);
@@ -65,6 +66,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n);
 long int	timestamps(void);
 void	print(t_philo *philo, char *text);
 void	betterusleep(int time);
+void *check_death(void *superv);
+int check_death_condition(t_philo *philo);
 
 
 #endif

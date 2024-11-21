@@ -6,24 +6,25 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:52:02 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/14 16:20:50 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:58:56 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "philo.h"
 
-void	check_args(int ac, char **av)
+int	check_args(int ac, char **av)
 {
 	if( ac != 5 && ac != 6)
 	{
 		printf("invalid number of arguments");
-		exit(1);
+		return(1);
 	}
 	check_av(av);
+	return(0);
 }
 
 
-void	check_av(char **av)
+int	check_av(char **av)
 {
 	int i;
 	long value;
@@ -35,24 +36,25 @@ void	check_av(char **av)
 		value = atol(av[i]);
 		if (value > INT_MAX)
 		{
-			printf("Error: No argument can be bigger then a int");
-			exit(1);
+			printf("Error: Arguments must be between 1 and INT_MAX");
+			return(1);
 		}
-		if ((i == 1) && (value > 200 || value <1))
+		if ((i == 1) && (value > INT_MAX || value <1))
 		{
-			printf("Error: Allowed number of philosofers is between 1 and 200");
-			exit(1);
+			printf("Error: Allowed number of philosofers is between 1 and INT_MAX");
+			return(1);
 		}
 				if ((i != 1) && (value < 1))
 		{
 			printf("Error: Arguments must be between 1 and INT_MAX");
-			exit(1);
+			return(1);
 		}
 	i++;
 	}
+	return(0);
 }
 
-void ll_check(char *av)
+int ll_check(char *av)
 {
 	int i;
 	
@@ -64,14 +66,15 @@ void ll_check(char *av)
 			if (!(i == 0 && av[0] == '-'))
 			{
 				printf("Error: Arguments must be integers");
-				exit(1);
+				return(1);
 			}
 		}
 		i++;
 	}
 	if (ft_strlen(av) > 10)
 	{
-		printf("Error: No argument can be bigger then a int");
-		exit(1);
+		printf("Error: Arguments must be between 1 and INT_MAX");
+		return(1);
 	}
+	return(0);
 }

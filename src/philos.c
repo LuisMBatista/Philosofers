@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 15:29:50 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/18 17:59:22 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:57:59 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ int init_philos(t_superv *superv, char **av, int ac)
 	
 	i = 0;
 	pthread_mutex_init(&superv->print,NULL);
+	pthread_mutex_init(&superv->dead_mutex,NULL);
 	while (i < ft_atol(av[1]))
 	{
 		superv->philos[i].id = i + 1;
 		superv->philos[i].eating = 0;
 		superv->philos[i].meals_eaten = 0;
 		superv->philos[i].num_of_philos = ft_atol(av[1]);
-		superv->philos[i].dead = &superv->dead_flag;
-		superv->philos[i].last_meal = 0;
+		superv->philos[i].dead = 0;
+		superv->philos[i].last_meal = timestamps();
 		superv->philos[i].start_time = timestamps();
 		superv->philos[i].time_to_die = ft_atol(av[2]);
 		superv->philos[i].time_to_eat = ft_atol(av[3]);
