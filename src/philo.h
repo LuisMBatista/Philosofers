@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:06:24 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/21 21:20:12 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/22 16:55:44 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_philo
 	long			time_to_sleep;
 	long			start_time;
 	pthread_t		thread;
+	pthread_mutex_t	single_dead_mutex;
 	pthread_mutex_t	r_fork;
 	pthread_mutex_t	*l_fork;
 	struct s_superv	*superv;
@@ -68,6 +69,9 @@ void	print(t_philo *philo, char *text);
 void	betterusleep(int time);
 void *check_death(void *superv);
 int check_death_condition(t_philo *philo);
+int one_philo(char **av);
+void	*ft_calloc(size_t count, size_t size);
+void 	ft_bzero(void *s, size_t n);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 15:29:50 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/21 17:57:59 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/24 22:27:06 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,25 @@ void forks(t_superv *superv, int i)
 	else
 		superv->philos[i].l_fork =  &superv->philos[i + 1].r_fork;
 	i++;
+}
+void thread_creation(t_superv *superv)
+{
+	int i;
+
+	i = 0;
+	while (i < superv->philos[0].num_of_philos)
+	{
+		
+		pthread_create(&superv->philos[i].thread, NULL, &philo_routine, &superv->philos[i]);
+		i++;
+	}
+	pthread_create(&superv->check_death,NULL, &check_death,superv);
+	i = 0;
+	pthread_join(superv->check_death, NULL);
+	while (i < superv->philos[0].num_of_philos)
+	{
+		pthread_join(superv->philos[i].thread, NULL);
+		i++;
+	}
+	
 }
