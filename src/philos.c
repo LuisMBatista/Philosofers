@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 15:29:50 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/24 22:27:06 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:57:57 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,13 @@ void thread_creation(t_superv *superv)
 	}
 	pthread_create(&superv->check_death,NULL, &check_death,superv);
 	i = 0;
-	pthread_join(superv->check_death, NULL);
 	while (i < superv->philos[0].num_of_philos)
 	{
 		pthread_join(superv->philos[i].thread, NULL);
 		i++;
 	}
-	
+	pthread_mutex_lock(&superv->dead_mutex);
+	superv->everyone_ate = 1;
+	pthread_mutex_unlock(&superv->dead_mutex);
+	pthread_join(superv->check_death, NULL);	
 }

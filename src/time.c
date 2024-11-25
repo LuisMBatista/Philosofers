@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:18:08 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/25 00:57:27 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:26:06 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,15 @@ void	print(t_philo *philo, char *text)
 {
 	long int	time;
 
+	pthread_mutex_lock(&(philo->superv->dead_mutex));
 	pthread_mutex_lock(&(philo->superv->print));
 	time = timestamps() - philo->start_time;
 	if (philo->superv->dead_flag == 0)
 		printf("%ld %d %s\n", time, philo->id, text);
 	if (ft_strncmp(text, "died", 4) == 0)
-		{
 			philo->superv->dead_flag = 1;
-			pthread_mutex_unlock(&(philo->superv->print));
-			return;
-		}
 	pthread_mutex_unlock(&(philo->superv->print));
+	pthread_mutex_unlock(&(philo->superv->dead_mutex));
 }
 //tirei mutes da dead flag
 

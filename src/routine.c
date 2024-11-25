@@ -6,12 +6,11 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 16:54:47 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/25 00:39:52 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:23:32 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
 
 void *philo_routine(void *philo) 
 {
@@ -19,63 +18,30 @@ void *philo_routine(void *philo)
 	
 	while (1) 
 	{
-		if (ph->num_times_to_eat != -1 && ph->meals_eaten >= ph->num_times_to_eat)
-			break;
-		if (ph->dead == 1)
-			break;
-		if(ph->num_of_philos == 1)
-			break;
 		pthread_mutex_lock(&ph->superv->dead_mutex);
-		if(ph->superv->dead_flag == 1)
+		if(ph->superv->finish == 1 || ph->dead == 1)
 		{
+			puts("checkers");
 			pthread_mutex_unlock(&ph->superv->dead_mutex);
 			break;
 		}
-		pthread_mutex_unlock(&ph->superv->dead_mutex);
 		if (timestamps() - ph->last_meal > ph->time_to_die)
 		{
+			puts("checkers1");
+			pthread_mutex_unlock(&ph->superv->dead_mutex);
 			print(philo,"died");
-			ph->superv->dead_flag = 1;
-			ph->dead = 1;
 			break;
 		}
+		pthread_mutex_unlock(&ph->superv->dead_mutex);
 		if (philo_eats(ph))
-			philo_sleeps(ph);
+		{
+			if (philo_sleeps(ph) == 0)
+				break;	
+		}
 		if (ph->dead == 1)
 			break;
 	}
 	return NULL;
-}
-
-int philo_sleeps(t_philo *philo)
-{
-	long int time;
-
-	time = timestamps();
-	if (philo->num_times_to_eat != -1 && philo->meals_eaten >= philo->num_times_to_eat)
-		return (0);
-	print(philo,"is sleeping");
-	while (timestamps() - time < philo->time_to_sleep)
-	{
-		if (timestamps() - philo->last_meal > philo->time_to_die)
-		{
-			print(philo,"died");
-			philo->dead = 1;
-			return(1);
-		}
-		betterusleep(philo->time_to_sleep /20);
-	}
-	pthread_mutex_lock(&philo->superv->dead_mutex);
-	if (philo->dead == 1 || philo->superv->dead_flag == 1 || (timestamps() - philo->last_meal > philo->time_to_die))
-	{
-		print(philo,"died");
-		philo->superv->dead_flag = 1;
-		pthread_mutex_unlock(&philo->superv->dead_mutex);
-		return(0);
-	}
-	pthread_mutex_unlock(&philo->superv->dead_mutex);
-	print(philo,"is thinking");
-	return (0);
 }
 
 int philo_eats(t_philo *philo)
@@ -93,7 +59,7 @@ int philo_eats(t_philo *philo)
         pthread_mutex_lock(philo->l_fork);
     }
 	pthread_mutex_lock(&philo->superv->dead_mutex);
-	if(philo->superv->dead_flag == 1)
+	if(philo->superv->finish == 1)
 	{
 		pthread_mutex_unlock(&philo->superv->dead_mutex);
 		pthread_mutex_unlock(&philo->r_fork);
@@ -119,5 +85,34 @@ int philo_eats(t_philo *philo)
 	pthread_mutex_unlock(philo->l_fork);
 	
 	return(1);
+}
+
+int philo_sleeps(t_philo *philo)
+{
+	long int time;
+
+	time = timestamps();
+	if (philo->num_times_to_eat != -1 && philo->meals_eaten >= philo->num_times_to_eat)
+		return (0);
+	print(philo,"is sleeping");
+	while (timestamps() - time < philo->time_to_sleep)
+	{
+		if (timestamps() - philo->last_meal > philo->time_to_die)
+		{
+			print(philo,"died");
+			philo->dead = 1;
+			return(0);
+		}
+		betterusleep(philo->time_to_sleep /20);
+	}
+	pthread_mutex_lock(&philo->superv->dead_mutex);
+	if (philo->superv->finish == 1)
+	{
+		pthread_mutex_unlock(&philo->superv->dead_mutex);
+		return(0);
+	}
+	pthread_mutex_unlock(&philo->superv->dead_mutex);
+	print(philo,"is thinking");
+	return (1);
 }
 

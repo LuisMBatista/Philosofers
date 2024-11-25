@@ -6,61 +6,55 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:52:02 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/22 14:49:26 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:36:38 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philo.h"
+#include "philo.h"
 
 int	check_args(int ac, char **av)
 {
-	if( ac != 5 && ac != 6)
+	if (ac != 5 && ac != 6)
 	{
 		printf("invalid number of arguments\n");
-		return(1);
+		return (1);
 	}
 	if (check_av(av) == 1)
-		return(1);
+		return (1);
 	if (one_philo(av) == 1)
-		return(1);
-	return(0);
+		return (1);
+	return (0);
 }
-
 
 int	check_av(char **av)
 {
-	int i;
-	long value;
+	int		i;
+	long	value;
 
 	i = 1;
 	while (av[i] != NULL)
 	{
 		ll_check(av[i]);
 		value = atol(av[i]);
-		if (value > INT_MAX)
+		if ((value < 1 || value > INT_MAX) && i != 1)
 		{
 			printf("Error: Arguments must be between 1 and INT_MAX\n");
-			return(1);
+			return (1);
 		}
-		if ((i == 1) && (value > INT_MAX || value <1))
+		if ((i == 1) && (value > 250 || value < 1))
 		{
-			printf("Error: Allowed number of philosofers is between 1 and INT_MAX\n");
-			return(1);
+			printf("Error: Number of philosofers between 1 and 250\n");
+			return (1);
 		}
-				if ((i != 1) && (value < 1))
-		{
-			printf("Error: Arguments must be between 1 and INT_MAX\n");
-			return(1);
-		}
-	i++;
+		i++;
 	}
-	return(0);
+	return (0);
 }
 
-int ll_check(char *av)
+int	ll_check(char *av)
 {
-	int i;
-	
+	int		i;
+
 	i = 0;
 	while (av[i] != '\0')
 	{
@@ -69,7 +63,7 @@ int ll_check(char *av)
 			if (!(i == 0 && av[0] == '-'))
 			{
 				printf("Error: Arguments must be integers\n");
-				return(1);
+				return (1);
 			}
 		}
 		i++;
@@ -77,16 +71,17 @@ int ll_check(char *av)
 	if (ft_strlen(av) > 10)
 	{
 		printf("Error: Arguments must be between 1 and INT_MAX\n");
-		return(1);
+		return (1);
 	}
-	return(0);
+	return (0);
 }
-int one_philo(char **av)
+
+int	one_philo(char **av)
 {
 	if (ft_atol(av[1]) == 1)
 	{
 		printf("0 1 died\n");
-		return(1);
+		return (1);
 	}
-	return(0);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:06:24 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/25 00:53:35 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:30:06 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_superv
 {
 	int				dead_flag;
 	int				finish;
+	int				everyone_ate;
 	t_philo			*philos;
 	pthread_t		check_death;
 	pthread_mutex_t print;
