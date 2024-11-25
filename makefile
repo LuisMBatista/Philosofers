@@ -6,7 +6,8 @@ CFLAGS = -g -Wall -Wextra -Werror #-pthread -fsanitize=address \
 
 SRC_DIR = src
 OBJ_DIR = obj
-SRC = $(wildcard $(SRC_DIR)/*.c)
+SRC = $(SRC_DIR)/args.c $(SRC_DIR)/main.c $(SRC_DIR)/philos.c $(SRC_DIR)/utils.c \
+      $(SRC_DIR)/death.c $(SRC_DIR)/routine.c $(SRC_DIR)/time.c
 OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 # Rules

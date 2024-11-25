@@ -6,20 +6,20 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:06:24 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/25 16:30:06 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/25 19:56:53 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/time.h>
-#include <pthread.h>
-#include <limits.h>
+# include <string.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/time.h>
+# include <pthread.h>
+# include <limits.h>
 
 typedef struct s_philo
 {
@@ -48,34 +48,29 @@ typedef struct s_superv
 	int				everyone_ate;
 	t_philo			*philos;
 	pthread_t		check_death;
-	pthread_mutex_t print;
-	pthread_mutex_t dead_mutex;
+	pthread_mutex_t	print;
+	pthread_mutex_t	dead_mutex;
 }					t_superv;
 
-long	ft_atol(const char *str);
-int		check_av(char **av);
-int		check_args(int ac, char **av);
-size_t	ft_strlen(const char *s);
-int 	ll_check(char *av);
-int		init_philos(t_superv *superv, char **av, int ac);
-size_t get_current_time_in_ms(void);
-void check_eating_times(t_superv *superv, char **av, int ac, int i);
-void *philo_routine(void *philo);
-void thread_creation(t_superv *superv);
-int philo_eats(t_philo *philo);
-int philo_sleeps(t_philo *philo);
-void forks(t_superv *superv, int i);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
+int			finish_condition(t_superv *philo);
+int			check_av(char **av);
+int			check_args(int ac, char **av);
+int			philo_eats(t_philo *philo);
+int			ll_check(char *av);
+int			init_philos(t_superv *superv, char **av, int ac);
+int			philo_sleeps(t_philo *philo);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+int			one_philo(char **av);
+long		ft_atol(const char *str);
 long int	timestamps(void);
-void	print(t_philo *philo, char *text);
-void	betterusleep(int time);
-void *check_death(void *superv);
-int finish_condition(t_superv *philo);
-int one_philo(char **av);
-void	*ft_calloc(size_t count, size_t size);
-void 	ft_bzero(void *s, size_t n);
-
+size_t		ft_strlen(const char *s);
+size_t		get_current_time_in_ms(void);
+void		check_eating_times(t_superv *superv, char **av, int ac, int i);
+void		*philo_routine(void *philo);
+void		thread_creation(t_superv *superv);
+void		forks(t_superv *superv, int i);
+void		print(t_philo *philo, char *text);
+void		betterusleep(int time);
+void		*check_death(void *superv);
 
 #endif
-
-

@@ -6,19 +6,19 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 15:29:50 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/25 16:57:57 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:44:46 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int init_philos(t_superv *superv, char **av, int ac)
+int	init_philos(t_superv *superv, char **av, int ac)
 {
-	int i;
-	
+	int		i;
+
 	i = 0;
-	pthread_mutex_init(&superv->print,NULL);
-	pthread_mutex_init(&superv->dead_mutex,NULL);
+	pthread_mutex_init(&superv->print, NULL);
+	pthread_mutex_init(&superv->dead_mutex, NULL);
 	while (i < ft_atol(av[1]))
 	{
 		superv->philos[i].id = i + 1;
@@ -39,7 +39,7 @@ int init_philos(t_superv *superv, char **av, int ac)
 	return (0);
 }
 
-void check_eating_times(t_superv *superv, char **av, int ac, int i)
+void	check_eating_times(t_superv *superv, char **av, int ac, int i)
 {
 	if (ac == 6)
 		superv->philos[i].num_times_to_eat = ft_atol(av[5]);
@@ -47,27 +47,28 @@ void check_eating_times(t_superv *superv, char **av, int ac, int i)
 		superv->philos[i].num_times_to_eat = -1;
 }
 
-void forks(t_superv *superv, int i)
+void	forks(t_superv *superv, int i)
 {
 	pthread_mutex_init(&superv->philos[i].r_fork, NULL);
 	if (i == superv->philos[0].num_of_philos - 1)
 		superv->philos[i].l_fork = &superv->philos[0].r_fork;
 	else
-		superv->philos[i].l_fork =  &superv->philos[i + 1].r_fork;
+		superv->philos[i].l_fork = &superv->philos[i + 1].r_fork;
 	i++;
 }
-void thread_creation(t_superv *superv)
+
+void	thread_creation(t_superv *superv)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (i < superv->philos[0].num_of_philos)
 	{
-		
-		pthread_create(&superv->philos[i].thread, NULL, &philo_routine, &superv->philos[i]);
+		pthread_create(&superv->philos[i].thread,
+			NULL, &philo_routine, &superv->philos[i]);
 		i++;
 	}
-	pthread_create(&superv->check_death,NULL, &check_death,superv);
+	pthread_create(&superv->check_death, NULL, &check_death, superv);
 	i = 0;
 	while (i < superv->philos[0].num_of_philos)
 	{
@@ -77,5 +78,5 @@ void thread_creation(t_superv *superv)
 	pthread_mutex_lock(&superv->dead_mutex);
 	superv->everyone_ate = 1;
 	pthread_mutex_unlock(&superv->dead_mutex);
-	pthread_join(superv->check_death, NULL);	
+	pthread_join(superv->check_death, NULL);
 }
