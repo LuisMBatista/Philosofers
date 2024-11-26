@@ -40,6 +40,6 @@ A fascinating concurrency exercise inspired by the famous **Dining Philosophers 
 1. Clone the repository:
    ```sh
    git clone git@github.com:LuisMBatista/Philosofers.git
-   cd philo
+   cd Philosofers
    make && ./philo 2 450 200 200 5
 
