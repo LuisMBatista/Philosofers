@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 16:54:47 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/25 20:05:00 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/26 13:19:55 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ void	*philo_routine(void *philo)
 	{
 		pthread_mutex_lock(&ph->superv->dead_mutex);
 		if (ph->superv->finish == 1 || ph->dead == 1)
-		{
-			pthread_mutex_unlock(&ph->superv->dead_mutex);
-			break ;
-		}
+			return (pthread_mutex_unlock(&ph->superv->dead_mutex), NULL);
 		if (timestamps() - ph->last_meal > ph->time_to_die)
 		{
 			pthread_mutex_unlock(&ph->superv->dead_mutex);
@@ -47,16 +44,7 @@ int	philo_eats(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 		usleep(1000);
-	if (philo->id % 2 == 0)
-	{
-		pthread_mutex_lock(philo->l_fork);
-		pthread_mutex_lock(&philo->r_fork);
-	}
-	else
-	{
-		pthread_mutex_lock(&philo->r_fork);
-		pthread_mutex_lock(philo->l_fork);
-	}
+	fork_locking(philo);
 	pthread_mutex_lock(&philo->superv->dead_mutex);
 	if (philo->superv->finish == 1)
 	{
@@ -66,14 +54,8 @@ int	philo_eats(t_philo *philo)
 		return (0);
 	}
 	pthread_mutex_unlock(&philo->superv->dead_mutex);
-	if (timestamps() - philo->last_meal > philo->time_to_die)
-	{
-		pthread_mutex_unlock(&philo->r_fork);
-		pthread_mutex_unlock(philo->l_fork);
-		print(philo, "died");
-		philo->dead = 1;
+	if (check_time(philo) == 0)
 		return (0);
-	}
 	print(philo, "has taken a fork");
 	print(philo, "has taken a fork");
 	print(philo, "is eating");
@@ -106,11 +88,35 @@ int	philo_sleeps(t_philo *philo)
 	}
 	pthread_mutex_lock(&philo->superv->dead_mutex);
 	if (philo->superv->finish == 1)
-	{
-		pthread_mutex_unlock(&philo->superv->dead_mutex);
-		return (0);
-	}
+		return (pthread_mutex_unlock(&philo->superv->dead_mutex), 0);
 	pthread_mutex_unlock(&philo->superv->dead_mutex);
 	print(philo, "is thinking");
+	return (1);
+}
+
+void	fork_locking(t_philo *philo)
+{
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_lock(philo->l_fork);
+		pthread_mutex_lock(&philo->r_fork);
+	}
+	else
+	{
+		pthread_mutex_lock(&philo->r_fork);
+		pthread_mutex_lock(philo->l_fork);
+	}
+}
+
+int	check_time(t_philo *philo)
+{
+	if (timestamps() - philo->last_meal > philo->time_to_die)
+	{
+		pthread_mutex_unlock(&philo->r_fork);
+		pthread_mutex_unlock(philo->l_fork);
+		print(philo, "died");
+		philo->dead = 1;
+		return (0);
+	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:06:24 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/25 19:56:53 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/26 16:12:12 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_superv
 {
 	int				dead_flag;
 	int				finish;
-	int				everyone_ate;
+	int				everyone_finished;
 	t_philo			*philos;
 	pthread_t		check_death;
 	pthread_mutex_t	print;
@@ -61,6 +61,7 @@ int			init_philos(t_superv *superv, char **av, int ac);
 int			philo_sleeps(t_philo *philo);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			one_philo(char **av);
+int			check_time(t_philo *philo);
 long		ft_atol(const char *str);
 long int	timestamps(void);
 size_t		ft_strlen(const char *s);
@@ -72,5 +73,6 @@ void		forks(t_superv *superv, int i);
 void		print(t_philo *philo, char *text);
 void		betterusleep(int time);
 void		*check_death(void *superv);
+void		fork_locking(t_philo *philo);
 
 #endif

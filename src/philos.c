@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 15:29:50 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/25 18:44:46 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/26 16:12:29 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	thread_creation(t_superv *superv)
 		i++;
 	}
 	pthread_mutex_lock(&superv->dead_mutex);
-	superv->everyone_ate = 1;
+	superv->everyone_finished = 1;
 	pthread_mutex_unlock(&superv->dead_mutex);
 	pthread_join(superv->check_death, NULL);
 }

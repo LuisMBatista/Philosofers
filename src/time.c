@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:18:08 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/25 19:52:24 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/26 13:12:01 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	betterusleep(int time)
 
 	now = timestamps();
 	while (timestamps() - now < time)
-		usleep(350);
+		usleep(100);
 }
 
 long int	timestamps(void)

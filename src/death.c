@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 23:24:01 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/25 18:40:42 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/26 16:12:02 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	*check_death(void *superv)
 			betterusleep(100);
 		}
 		pthread_mutex_lock(&death->dead_mutex);
-		if (death->finish == 1 || death->everyone_ate == 1)
+		if (death->finish == 1 || death->everyone_finished == 1)
 		{
 			pthread_mutex_unlock(&death->dead_mutex);
 			break ;
