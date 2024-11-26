@@ -42,4 +42,4 @@ A fascinating concurrency exercise inspired by the famous **Dining Philosophers 
    git clone <https://github.com/LuisMBatista/philo>
    cd philo
    make && ./philo 2 450 200 200 5
-   ```sh
+
