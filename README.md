@@ -1,6 +1,6 @@
 # Philosophers Project 🧘‍♂️🍽️
 
-A fascinating concurrency exercise inspired by the famous **Dining Philosophers Problem**. In this project, each philosopher is represented as a thread, and the simulation ensures synchronization using mutexes to avoid race conditions. 
+A concurrency exercise inspired by the famous **Dining Philosophers Problem**. In this project, each philosopher is represented as a thread, and the simulation ensures synchronization using mutexes to avoid race conditions. 
 
 ---
 
