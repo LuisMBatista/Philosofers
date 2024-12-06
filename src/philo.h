@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:06:24 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/26 16:12:12 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:41:54 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ void		print(t_philo *philo, char *text);
 void		betterusleep(int time);
 void		*check_death(void *superv);
 void		fork_locking(t_philo *philo);
+int			ft_isalpha(int c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:08:46 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/25 19:53:48 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:42:19 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ long	ft_atol(const char *str)
 		i++;
 	while (str[i] != '\0' && ft_isdigit(str[i]))
 		nbr = (nbr * 10) + (str[i++] - '0');
+	if (ft_isalpha(str[i]) == 0)
+		return(0);
 	if (isneg == 1)
 		return (-nbr);
 	return (nbr);
@@ -76,4 +78,10 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		i++;
 	}
 	return (0);
+}
+int	ft_isalpha(int c)
+{
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+		return (0);
+	return (1);
 }

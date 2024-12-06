@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:52:02 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/25 18:36:38 by lumiguel         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:27:49 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_av(char **av)
 	while (av[i] != NULL)
 	{
 		ll_check(av[i]);
-		value = atol(av[i]);
+		value = ft_atol(av[i]);
 		if ((value < 1 || value > INT_MAX) && i != 1)
 		{
 			printf("Error: Arguments must be between 1 and INT_MAX\n");
