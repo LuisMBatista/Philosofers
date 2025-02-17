@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: lumiguel <lumiguel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:06:24 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/29 14:41:54 by lumiguel         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:32:41 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 typedef struct s_philo
 {
+	int				think_timer;
 	int				id;
 	int				eating;
 	int				meals_eaten;
@@ -66,14 +67,15 @@ long		ft_atol(const char *str);
 long int	timestamps(void);
 size_t		ft_strlen(const char *s);
 size_t		get_current_time_in_ms(void);
-void		check_eating_times(t_superv *superv, char **av, int ac, int i);
 void		*philo_routine(void *philo);
 void		thread_creation(t_superv *superv);
-void		forks(t_superv *superv, int i);
+void		forks(t_superv *superv, char **av, int ac, int i);
 void		print(t_philo *philo, char *text);
 void		betterusleep(int time);
 void		*check_death(void *superv);
 void		fork_locking(t_philo *philo);
 int			ft_isalpha(int c);
+int			is_even(int i);
+void		think_wait(t_philo *philo);
 
 #endif

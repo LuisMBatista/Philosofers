@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: lumiguel <lumiguel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 16:54:47 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/26 13:19:55 by lumiguel         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:33:33 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	philo_sleeps(t_philo *philo)
 	if (philo->superv->finish == 1)
 		return (pthread_mutex_unlock(&philo->superv->dead_mutex), 0);
 	pthread_mutex_unlock(&philo->superv->dead_mutex);
-	print(philo, "is thinking");
+	think_wait(philo);
 	return (1);
 }
 

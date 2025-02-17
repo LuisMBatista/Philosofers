@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: lumiguel <lumiguel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:08:46 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/29 14:42:19 by lumiguel         ###   ########.fr       */
+/*   Updated: 2025/02/17 14:19:50 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ long	ft_atol(const char *str)
 	while (str[i] != '\0' && ft_isdigit(str[i]))
 		nbr = (nbr * 10) + (str[i++] - '0');
 	if (ft_isalpha(str[i]) == 0)
-		return(0);
+		return (0);
 	if (isneg == 1)
 		return (-nbr);
 	return (nbr);
@@ -58,14 +58,6 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-size_t	get_current_time_in_ms(void)
-{
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
-}
-
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
@@ -79,6 +71,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	}
 	return (0);
 }
+
 int	ft_isalpha(int c)
 {
 	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
