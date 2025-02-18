@@ -80,7 +80,8 @@ int	one_philo(char **av)
 {
 	if (ft_atol(av[1]) == 1)
 	{
-		printf("0 1 died\n");
+		betterusleep(ft_atol(av[2]));
+		printf("%ld 1 died\n", ft_atol(av[2]));
 		return (1);
 	}
 	return (0);
