@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 16:54:47 by lumiguel          #+#    #+#             */
-/*   Updated: 2025/02/17 17:33:33 by lumiguel         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:06:10 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	philo_eats(t_philo *philo)
 	print(philo, "is eating");
 	philo->last_meal = timestamps();
 	philo->meals_eaten++;
-	betterusleep(philo->time_to_eat);
+	eating_timer(philo);
 	pthread_mutex_unlock(&philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
 	return (1);

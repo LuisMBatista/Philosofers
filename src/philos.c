@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 15:29:50 by lumiguel          #+#    #+#             */
-/*   Updated: 2025/02/17 17:33:59 by lumiguel         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:06:03 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,37 @@ void	thread_creation(t_superv *superv)
 
 void	think_wait(t_philo *philo)
 {
+	long int	time;
+
+	time = timestamps();
 	print(philo, "is thinking");
-	betterusleep(philo->think_timer);
+	while (timestamps() - time < (philo->time_to_eat - philo->time_to_sleep))
+	{
+		if (timestamps() - philo->last_meal > philo->time_to_die)
+		{
+			print(philo, "died");
+			philo->dead = 1;
+		}
+		betterusleep(philo->time_to_eat / 20);
+	}
+}
+
+int	eating_timer(t_philo *philo)
+{
+	long int	time;
+
+	time = timestamps();
+	while (timestamps() - time < philo->time_to_eat)
+	{
+		if (timestamps() - philo->last_meal > philo->time_to_die)
+		{
+			pthread_mutex_unlock(&philo->r_fork);
+			pthread_mutex_unlock(philo->l_fork);
+			print(philo, "died");
+			philo->dead = 1;
+			return (0);
+		}
+		betterusleep(philo->time_to_eat / 100);
+	}
+	return (1);
 }

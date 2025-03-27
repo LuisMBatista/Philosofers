@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:06:24 by lumiguel          #+#    #+#             */
-/*   Updated: 2025/02/17 17:32:41 by lumiguel         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:59:20 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ void		fork_locking(t_philo *philo);
 int			ft_isalpha(int c);
 int			is_even(int i);
 void		think_wait(t_philo *philo);
+int			eating_timer(t_philo *philo);
 
 #endif
