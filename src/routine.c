@@ -59,9 +59,9 @@ int	philo_eats(t_philo *philo)
 	print(philo, "has taken a fork");
 	print(philo, "has taken a fork");
 	print(philo, "is eating");
+	eating_timer(philo);
 	philo->last_meal = timestamps();
 	philo->meals_eaten++;
-	eating_timer(philo);
 	pthread_mutex_unlock(&philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
 	return (1);
