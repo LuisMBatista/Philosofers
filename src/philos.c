@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philos.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumiguel <lumiguel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 15:29:50 by lumiguel          #+#    #+#             */
-/*   Updated: 2025/03/27 15:06:03 by lumiguel         ###   ########.fr       */
+/*   Updated: 2025/05/10 18:18:05 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	think_wait(t_philo *philo)
 			print(philo, "died");
 			philo->dead = 1;
 		}
-		betterusleep(philo->time_to_eat / 20);
+		betterusleep(50);
 	}
 }
 
@@ -111,7 +111,7 @@ int	eating_timer(t_philo *philo)
 			philo->dead = 1;
 			return (0);
 		}
-		betterusleep(philo->time_to_eat / 100);
+		betterusleep(10);
 	}
 	return (1);
 }

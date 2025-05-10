@@ -6,7 +6,7 @@
 /*   By: lumiguel <lumiguel@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:52:02 by lumiguel          #+#    #+#             */
-/*   Updated: 2024/11/29 14:27:49 by lumiguel         ###   ########.fr       */
+/*   Updated: 2025/05/10 17:30:38 by lumiguel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	check_av(char **av)
 	i = 1;
 	while (av[i] != NULL)
 	{
-		ll_check(av[i]);
+		if(ll_check(av[i]) == 1)
+			return(1);
 		value = ft_atol(av[i]);
 		if ((value < 1 || value > INT_MAX) && i != 1)
 		{
