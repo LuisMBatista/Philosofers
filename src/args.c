@@ -34,8 +34,8 @@ int	check_av(char **av)
 	i = 1;
 	while (av[i] != NULL)
 	{
-		if(ll_check(av[i]) == 1)
-			return(1);
+		if (ll_check(av[i]) == 1)
+			return (1);
 		value = ft_atol(av[i]);
 		if ((value < 1 || value > INT_MAX) && i != 1)
 		{
